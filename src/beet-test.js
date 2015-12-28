@@ -1,30 +1,30 @@
 import audioController from './audio-controller';
 import WebAudio from './web-audio';
 
-import clap from 'file!./sfx/clap-808.wav';
 import kick from 'file!./sfx/kick-big.wav';
+import hat from 'file!./sfx/hihat-plain.wav';
+import snare from 'file!./sfx/snare-analog.wav';
 
 export default function() {
-  let clapThing = new WebAudio(clap);
   let waKick = new WebAudio(kick);
+  let waSnare = new WebAudio(snare);
+  let waHat = new WebAudio(hat);
 
   // initialize beet
   var beet = new Beet({
     context: audioController.context,
-    tempo: 140
+    tempo: 120
   });
 
-  // create a euclidean pattern - 5 pulses distrubted in 7 steps
-  var pattern = beet.pattern(2, 2);
-  var pattern2 = beet.pattern(3, 3);
-
   // create a beet layer - pass it the pattern and a callback
-  var layer = beet.layer(pattern, clapThing.play);
-  var layer2 = beet.layer(pattern2, waKick.play);
+  var layer1 = beet.layer('10001000', waKick.play);
+  var layer2 = beet.layer('00100010', waSnare.play);
+  var layer3 = beet.layer('11111111', waHat.play);
 
   // add the layer
-  beet.add(layer);
+  beet.add(layer1);
   beet.add(layer2);
+  beet.add(layer3);
 
   // start the sequencer
   beet.start();
