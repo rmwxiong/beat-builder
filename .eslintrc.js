@@ -6,6 +6,11 @@ module.exports = {
     node: true
   },
   'globals': {
+    'Beet': true,
+    'Howler': true,
+    'Howl': true,
+    'T': true,
+    'timbre': true
   },
   'rules': {
     'max-len': [1, 120, 4],
