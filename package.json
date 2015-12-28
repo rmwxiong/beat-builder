@@ -11,18 +11,23 @@
   "author": "Max Xiong",
   "license": "",
   "devDependencies": {
+    "eslint": "^1.10.3",
     "eslint-config-google": "^0.3.0",
+    "eslint-plugin-react": "^3.13.1",
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
     "autoprefixer-core": "^5.1.11",
     "babel-core": "^5.2.6",
     "babel-loader": "^5.0.0",
+    "babel-preset-react": "^6.3.13",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "howler": "^1.1.28",
     "keyboardjs": "^2.2.0",
     "lodash": "^3.10.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "style-loader": "^0.12.1",
     "stylus-loader": "^1.4.2",
     "webpack": "^1.12.9"
