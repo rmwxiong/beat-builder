@@ -2,9 +2,13 @@ import audioController from './audio-controller';
 
 export default class WebAudio {
   constructor(url) {
+    this.play = this.play.bind(this);
+
     this.src = url;
     this.load(url, buffer => {
       this.buffer = buffer;
+    }, error => {
+      console.log('Failed to load', error);
     });
     this.context = audioController.context;
   }
