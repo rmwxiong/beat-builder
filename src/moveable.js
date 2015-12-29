@@ -30,6 +30,20 @@ export default class Moveable {
     }
   }
 
+  get x() {
+    return this.entity.x;
+  }
+  set x(value) {
+    this.entity.x = value;
+  }
+
+  get y() {
+    return this.entity.y;
+  }
+  set y(value) {
+    this.entity.y = value;
+  }
+
   moveBy(x, y) {
     if (x) {
       this.entity.x += x;
@@ -65,9 +79,14 @@ export default class Moveable {
     }
   }
 
+  fillRect(color) {
+    color = color || '#aaa';
+    this.graphics.beginFill(color).drawRect(0, 0, this.entity.width, this.entity.height);
+  }
+
   move(delta) {
     delta = delta || 16;
-    this.moveBy(this.dx * delta / 100, this.dy * delta / 100);
+    this.moveBy(this.dx * delta / 1000, this.dy * delta / 1000);
   }
 
   isOnBoundary() {
