@@ -1,6 +1,6 @@
 class AudioController {
   constructor(tempo, beats) {
-    this.onBeat = this.onBeat.bind(this);
+    this.onBeatScheduled = this.onBeatScheduled.bind(this);
 
     this.context = new AudioContext();
     this.tempo = tempo || 120;
@@ -14,11 +14,17 @@ class AudioController {
     this.beet.add(baseLayer);
     this.beet.start();
 
-    document.addEventListener('beat', this.onBeat);
+    document.addEventListener('beatScheduled', this.onBeatScheduled);
   }
 
-  onBeat(event) {
+  onBeatScheduled(event) {
     let detail = event.detail;
+
+    setTimeout(() => {
+      let beatEvent = new CustomEvent('beat', event);
+      document.dispatchEvent(beatEvent);
+    }, detail.timeFromScheduled * 1000);
+
     var osc = this.context.createOscillator();
     osc.connect(this.context.destination);
     if (detail.step === 1) {
@@ -37,12 +43,16 @@ class AudioController {
       step,
       timeFromScheduled
     }};
-    let beatEvent = new CustomEvent('beat', eventDetail);
+    let beatEvent = new CustomEvent('beatScheduled', eventDetail);
     document.dispatchEvent(beatEvent);
   }
 
   get measureDuration() {
     return this.beatsPerBar / (this.tempo / 60);
+  }
+
+  getBarProgress(step) {
+    return (step - 1) / this.beatsPerBar;
   }
 
   load(path, success, failure) {

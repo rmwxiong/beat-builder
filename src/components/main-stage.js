@@ -7,11 +7,11 @@ export default class MainStage extends React.Component {
   constructor() {
     super();
     this.tick = this.tick.bind(this);
+    this.onBeat = this.onBeat.bind(this);
   }
 
   componentDidMount() {
     let stage = this.stage = new createjs.Stage('main-stage');
-    console.log(stage);
     let sweeper = this.sweeper = new Moveable(stage, {
       width: 10,
       height: stage.canvas.height,
@@ -25,15 +25,20 @@ export default class MainStage extends React.Component {
     document.addEventListener('beat', this.onBeat);
   }
 
+  get width() {
+    return this.stage.canvas.width;
+  }
+
+  get height() {
+    return this.stage.canvas.height;
+  }
+
   tick(event) {
     this.sweeper.move(event.delta);
-    if (this.sweeper.x >= this.stage.canvas.width) {
-      this.sweeper.x = 0;
-    }
   }
 
   onBeat(event) {
-    console.log(event);
+    this.sweeper.x = AudioController.getBarProgress(event.detail.step) * this.width;
   }
 
   render() {
