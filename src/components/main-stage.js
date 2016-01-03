@@ -39,6 +39,9 @@ export default class MainStage extends React.Component {
 
   onBeat(event) {
     this.sweeper.x = AudioController.getBarProgress(event.detail.step) * this.width;
+    this.sweeper.fillRect('#393');
+    this.stage.update();
+    this.sweeper.fillRect();
   }
 
   render() {
